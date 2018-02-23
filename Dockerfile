@@ -1,8 +1,29 @@
 FROM node:8-stretch
 
-RUN apt update
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+
+RUN apt update -yqqq
 RUN apt upgrade -y
-RUN apt install unzip rsync openjdk-8-jdk xvfb maven ssh-askpass openssh-client ca-certificates libgif-dev libgconf-2-4 chromium libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++ -y
+RUN apt install unzip \
+    rsync \
+    openjdk-8-jdk \
+    xvfb \
+    maven \
+    ssh-askpass \
+    openssh-client \
+    ca-certificates \
+    libgif-dev \
+    libgconf-2-4 \
+    chromium \
+    libcairo2-dev \
+    libjpeg-dev \
+    libpango1.0-dev \
+    libgif-dev \
+    build-essential \
+    g++ \
+    google-chrome-stable -y
+
 RUN wget -q http://cdn.sencha.com/cmd/6.2.2/no-jre/SenchaCmd-6.2.2-linux-amd64.sh.zip
 RUN unzip SenchaCmd-6.2.2-linux-amd64.sh.zip
 RUN ./SenchaCmd-6.2.2.36-linux-amd64.sh -q
