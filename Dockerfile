@@ -24,6 +24,10 @@ RUN apt install unzip \
     g++ \
     google-chrome-stable -y
 
+RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb \
+  && dpkg -i /tmp/libpng12.deb \
+  && rm /tmp/libpng12.deb
+
 RUN wget -q http://cdn.sencha.com/cmd/6.2.2/no-jre/SenchaCmd-6.2.2-linux-amd64.sh.zip
 RUN unzip SenchaCmd-6.2.2-linux-amd64.sh.zip
 RUN ./SenchaCmd-6.2.2.36-linux-amd64.sh -q
