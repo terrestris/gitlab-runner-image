@@ -28,10 +28,12 @@ RUN apt install unzip \
     curl \
     gnupg2 \
     software-properties-common \
+    docker-ce \
     google-chrome-stable -y
 
 RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
 RUN curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+RUN chmod 755 /usr/local/bin/docker-compose
 
 RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb \
   && dpkg -i /tmp/libpng12.deb \
