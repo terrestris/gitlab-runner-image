@@ -3,11 +3,8 @@ FROM node:8-stretch
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
-RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
-RUN curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 
 RUN apt update -yqqq
-apt-get install \
 RUN apt upgrade -y
 RUN apt install unzip \
     rsync \
@@ -32,6 +29,9 @@ RUN apt install unzip \
     gnupg2 \
     software-properties-common \
     google-chrome-stable -y
+
+RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
+RUN curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 
 RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb \
   && dpkg -i /tmp/libpng12.deb \
