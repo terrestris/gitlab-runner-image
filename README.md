@@ -1,11 +1,9 @@
 Gitlab runner image
 ===================
 
-A basic docker image with preinstalled SenchaCmd, maven, nodejs and
-chrome/chromium for headless testing.
+A basic docker image with preinstalled maven, nodejs and
+chrome/chromium for headless testing. This specific version uses
+OpenJDK 11 and maven 3.6.
 
-The images are tagged with the SenchaCmd version.
-
-Everything except the SenchaCmd is installed via apt (and thus
-available in the standard $PATH). SenchaCmd is installed in
-`/root/bin/Sencha/Cmd/$SENCHA_CMD_VERSION/sencha`.
+Please note that this version of the image does currently NOT
+contain a SenchaCmd.
