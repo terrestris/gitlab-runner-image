@@ -30,6 +30,8 @@ RUN apt install unzip \
     google-chrome-stable -y
 
 RUN apt install -t stretch-backports openjdk-11-jdk -y
+RUN rm /etc/ssl/certs/java/cacerts
+RUN update-ca-certificates -f
 
 RUN wget -q -O /tmp/maven.tgz http://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
 RUN tar xf /tmp/maven.tgz
