@@ -27,6 +27,7 @@ RUN apt install unzip \
     curl \
     gnupg2 \
     software-properties-common \
+    p11-kit \
     google-chrome-stable -y
 
 RUN apt install -t stretch-backports openjdk-11-jdk ca-certificates-java -y
@@ -48,6 +49,8 @@ RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp
 
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
+RUN update-ca-certificates
+RUN trust extract --overwrite --format=java-cacerts --filter=ca-anchors --purpose=server-auth /usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts
 
 ENV CHROME_BIN /usr/bin/chromium
 ENV DISPLAY :99
