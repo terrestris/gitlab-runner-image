@@ -1,4 +1,4 @@
-FROM node:8-stretch
+FROM node:12-buster
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -8,7 +8,7 @@ RUN apt update -yqqq
 RUN apt upgrade -y
 RUN apt install unzip \
     rsync \
-    openjdk-8-jdk \
+    openjdk-11-jdk \
     xvfb \
     maven \
     ssh-askpass \
@@ -31,7 +31,7 @@ RUN apt install unzip \
     google-chrome-stable -y
 
 RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
-RUN curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+RUN curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 RUN chmod 755 /usr/local/bin/docker-compose
 RUN apt update -yqqq
 RUN apt install docker-ce -y
