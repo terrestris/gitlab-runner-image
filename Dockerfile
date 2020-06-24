@@ -38,11 +38,11 @@ RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp
   && dpkg -i /tmp/libpng12.deb \
   && rm /tmp/libpng12.deb
 
-RUN wget -q http://cdn.sencha.com/cmd/6.7.0.63/no-jre/SenchaCmd-6.7.0.63-linux-amd64.sh.zip
-RUN unzip -q SenchaCmd-6.7.0.63-linux-amd64.sh.zip
-RUN ./SenchaCmd-6.7.0.63-linux-amd64.sh -q
-RUN rm SenchaCmd-6.7.0.63-linux-amd64.sh.zip
-RUN rm SenchaCmd-6.7.0.63-linux-amd64.sh
+RUN wget -q http://cdn.sencha.com/cmd/6.2.2.36/no-jre/SenchaCmd-6.2.2.36-linux-amd64.sh.zip
+RUN unzip -q SenchaCmd-6.2.2.36-linux-amd64.sh.zip
+RUN ./SenchaCmd-6.2.2.36-linux-amd64.sh -q
+RUN rm SenchaCmd-6.2.2.36-linux-amd64.sh.zip
+RUN rm SenchaCmd-6.2.2.36-linux-amd64.sh
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
