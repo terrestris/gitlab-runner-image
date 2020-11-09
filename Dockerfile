@@ -32,9 +32,9 @@ RUN apt install unzip \
 
 RUN apt install -t stretch-backports openjdk-11-jdk ca-certificates-java -y
 
-RUN wget -q -O /tmp/maven.tgz http://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
+RUN wget -q -O /tmp/maven.tgz https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
 RUN tar xf /tmp/maven.tgz
-RUN mv apache-maven-3.6.1 $HOME/maven
+RUN mv apache-maven-3.6.3 $HOME/maven
 RUN rm /tmp/maven.tgz
 
 RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
