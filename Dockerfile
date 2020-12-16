@@ -1,4 +1,4 @@
-FROM node:8-stretch
+FROM node:12-buster
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -8,7 +8,7 @@ RUN apt update -yqqq
 RUN apt upgrade -y
 RUN apt install unzip \
     rsync \
-    openjdk-8-jdk \
+    openjdk-11-jdk \
     xvfb \
     maven \
     ssh-askpass \
@@ -40,11 +40,11 @@ RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp
   && dpkg -i /tmp/libpng12.deb \
   && rm /tmp/libpng12.deb
 
-RUN wget -q http://cdn.sencha.com/cmd/6.7.0.63/no-jre/SenchaCmd-6.7.0.63-linux-amd64.sh.zip
-RUN unzip -q SenchaCmd-6.7.0.63-linux-amd64.sh.zip
-RUN ./SenchaCmd-6.7.0.63-linux-amd64.sh -q
-RUN rm SenchaCmd-6.7.0.63-linux-amd64.sh.zip
-RUN rm SenchaCmd-6.7.0.63-linux-amd64.sh
+RUN wget -q http://cdn.sencha.com/cmd/7.3.0.19/no-jre/SenchaCmd-7.3.0.19-linux-amd64.sh.zip
+RUN unzip -q SenchaCmd-7.3.0.19-linux-amd64.sh.zip
+RUN ./SenchaCmd-7.3.0.19-linux-amd64.sh -q
+RUN rm SenchaCmd-7.3.0.19-linux-amd64.sh.zip
+RUN rm SenchaCmd-7.3.0.19-linux-amd64.sh
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
