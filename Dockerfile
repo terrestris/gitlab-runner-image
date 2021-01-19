@@ -1,4 +1,4 @@
-FROM node:8-stretch
+FROM node:12-buster
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add -
