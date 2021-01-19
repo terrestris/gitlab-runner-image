@@ -28,6 +28,7 @@ RUN apt install unzip \
     gnupg2 \
     software-properties-common \
     p11-kit \
+    libxss1 \
     google-chrome-stable -y
 
 RUN apt install -t stretch-backports openjdk-11-jdk ca-certificates-java -y
