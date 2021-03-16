@@ -20,6 +20,7 @@ RUN apt install unzip \
     libcairo2-dev \
     libjpeg-dev \
     libpango1.0-dev \
+    libgbm1 libgbm-dev \
     libgif-dev \
     build-essential \
     g++ \
