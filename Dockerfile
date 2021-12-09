@@ -1,8 +1,10 @@
-FROM node:12-buster
+# Fermium = Node 14 LTS
+FROM node:fermium
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+RUN echo "deb http://ftp.debian.org/debian stretch-backports main" > /etc/apt/sources.list.d/stretch-backports.list
 
 RUN apt update -yqqq
 RUN apt upgrade -y
