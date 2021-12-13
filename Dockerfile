@@ -9,7 +9,6 @@ RUN apt install unzip \
     rsync \
     openjdk-8-jdk \
     xvfb \
-    maven \
     ssh-askpass \
     openssh-client \
     ca-certificates \
@@ -27,6 +26,11 @@ RUN apt install unzip \
     curl \
     gnupg2 \
     software-properties-common -y
+
+RUN wget -q -O /tmp/maven.tgz https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+RUN tar xf /tmp/maven.tgz
+RUN mv apache-maven-3.6.3 $HOME/maven
+RUN rm /tmp/maven.tgz
 
 RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
 RUN curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
@@ -48,3 +52,4 @@ RUN rm -rf /var/lib/apt/lists/*
 
 ENV CHROME_BIN /usr/bin/chromium
 ENV DISPLAY :99
+ENV PATH=/root/maven/bin:${PATH}
