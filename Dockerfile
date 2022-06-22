@@ -1,14 +1,13 @@
-FROM node:12-buster
+FROM node:18-bullseye
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add -
-RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
 
 RUN apt update -yqqq
 RUN apt upgrade -y
 RUN apt install unzip \
     rsync \
-    openjdk-11-jdk \
+    openjdk-17-jdk \
     xvfb \
     maven \
     ssh-askpass \
@@ -27,10 +26,13 @@ RUN apt install unzip \
     apt-transport-https \
     ca-certificates \
     curl \
+    wget \
     gnupg2 \
-    software-properties-common \
-    google-chrome-stable -y
+    software-properties-common -y
 
+RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+  dpkg -i google-chrome-stable_current_amd64.deb && \
+  rm google-chrome-stable_current_amd64.deb
 RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
 RUN curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 RUN chmod 755 /usr/local/bin/docker-compose
