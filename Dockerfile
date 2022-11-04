@@ -7,7 +7,6 @@ RUN apt update -yqqq
 RUN apt upgrade -y
 RUN apt install unzip \
     rsync \
-    openjdk-8-jdk \
     xvfb \
     ssh-askpass \
     openssh-client \
@@ -26,6 +25,9 @@ RUN apt install unzip \
     curl \
     gnupg2 \
     software-properties-common -y
+
+RUN echo "deb http://mirror.netcologne.de/debian/ oldoldstable main contrib non-free" > /etc/apt/sources.list.d/docker.list
+RUN apt -y update && apt -y install openjdk-8-jdk
 
 RUN wget -q -O /tmp/maven.tgz https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
 RUN tar xf /tmp/maven.tgz
