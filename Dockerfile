@@ -26,7 +26,7 @@ RUN apt install unzip \
     gnupg2 \
     software-properties-common -y
 
-RUN echo "deb http://mirror.netcologne.de/debian/ oldoldstable main contrib non-free" > /etc/apt/sources.list.d/docker.list
+RUN echo "deb http://mirror.netcologne.de/debian/ unstable main contrib non-free" > /etc/apt/sources.list.d/docker.list
 RUN apt -y update && apt -y install openjdk-8-jdk
 
 RUN wget -q -O /tmp/maven.tgz https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
@@ -34,7 +34,7 @@ RUN tar xf /tmp/maven.tgz
 RUN mv apache-maven-3.6.3 $HOME/maven
 RUN rm /tmp/maven.tgz
 
-RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
+RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian buster stable" > /etc/apt/sources.list.d/docker.list
 RUN curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 RUN chmod 755 /usr/local/bin/docker-compose
 RUN apt -y update
