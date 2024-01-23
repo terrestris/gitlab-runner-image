@@ -3,7 +3,7 @@ FROM node:12-stretch
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add -
 
-RUN apt update -yqqq
+RUN apt -y update
 RUN apt upgrade -y
 RUN apt install unzip \
     rsync \
