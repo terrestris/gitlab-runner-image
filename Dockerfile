@@ -26,7 +26,7 @@ RUN apt install unzip \
     gnupg2 \
     software-properties-common -y
 
-RUN curl 'https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924428/a6024786-543c-44a7-8594-4f25c5ed0f14?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240123%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240123T102037Z&X-Amz-Expires=300&X-Amz-Signature=4ff47fd0b9fb514ecad28ef9176999069dcef73127c80ce9c2f9d4d61b9ab204&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=372924428&response-content-disposition=attachment%3B%20filename%3DOpenJDK8U-jdk_x64_linux_hotspot_8u402b06.tar.gz&response-content-type=application%2Foctet-stream' -o /tmp/jdk.tgz
+RUN curl -L 'https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u402-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u402b06.tar.gz' -o /tmp/jdk.tgz
 RUN tar xf /tmp/jdk.tgz
 
 RUN wget -q -O /tmp/maven.tgz https://downloads.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
