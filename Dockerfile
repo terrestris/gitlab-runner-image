@@ -1,9 +1,10 @@
-FROM node:20-bullseye
+FROM node:20-bookworm
 
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian bookworm stable" > /etc/apt/sources.list.d/docker.list && \
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
   wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add - && \
   wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null && \
-  echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list && \
+  echo "deb https://packages.adoptium.net/artifactory/deb bookworm main" | tee /etc/apt/sources.list.d/adoptium.list && \
   apt update -yqqq && \
   apt upgrade -y && \
   apt install unzip \
@@ -29,6 +30,8 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
   curl \
   wget \
   gnupg2 \
+  docker-compose-plugin \
+  docker-ce \
   software-properties-common -y && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
