@@ -1,4 +1,4 @@
-FROM node:20-bullseye
+FROM node:24-bullseye
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
   wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add - && \
@@ -7,7 +7,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
   apt update -yqqq && \
   apt upgrade -y && \
   apt install unzip \
-  temurin-21-jdk \
+  temurin-24-jdk \
   rsync \
   xvfb \
   maven \
