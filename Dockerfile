@@ -1,4 +1,4 @@
-FROM node:16-buster
+FROM node:20-bookworm
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -26,25 +26,28 @@ RUN apt install unzip \
     gnupg2 \
     software-properties-common -y
 
-RUN echo "deb http://mirror.netcologne.de/debian/ oldoldstable main contrib non-free" > /etc/apt/sources.list.d/docker.list
-RUN apt -y update && apt -y install openjdk-8-jdk
+RUN apt -y update && \
+    wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /usr/share/keyrings/adoptium-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/adoptium-archive-keyring.gpg] https://packages.adoptium.net/artifactory/deb $(lsb_release -cs) main" > /etc/apt/sources.list.d/adoptium.list && \
+    apt update -y && \
+    apt install -y temurin-8-jdk
 
-RUN wget -q -O /tmp/maven.tgz https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+RUN wget -q -O /tmp/maven.tgz https://downloads.apache.org/maven/maven-3/3.8.9/binaries/apache-maven-3.8.9-bin.tar.gz
 RUN tar xf /tmp/maven.tgz
-RUN mv apache-maven-3.6.3 $HOME/maven
+RUN mv apache-maven-3.8.9 $HOME/maven
 RUN rm /tmp/maven.tgz
 
-RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" > /etc/apt/sources.list.d/docker.list
-RUN curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-RUN chmod 755 /usr/local/bin/docker-compose
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
+    chmod a+r /etc/apt/keyrings/docker.asc
+RUN echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      tee /etc/apt/sources.list.d/docker.list > /dev/null
 RUN apt update -yqqq
-RUN apt install docker-ce -y
+RUN apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb \
-  && dpkg -i /tmp/libpng12.deb \
-  && rm /tmp/libpng12.deb
-
-RUN wget -q http://cdn.sencha.com/cmd/6.2.2.36/no-jre/SenchaCmd-6.2.2.36-linux-amd64.sh.zip
+RUN wget -q https://cdn.sencha.com/cmd/6.2.2.36/no-jre/SenchaCmd-6.2.2.36-linux-amd64.sh.zip
 RUN unzip -q SenchaCmd-6.2.2.36-linux-amd64.sh.zip
 RUN ./SenchaCmd-6.2.2.36-linux-amd64.sh -q
 RUN rm SenchaCmd-6.2.2.36-linux-amd64.sh.zip
@@ -52,6 +55,6 @@ RUN rm SenchaCmd-6.2.2.36-linux-amd64.sh
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
-ENV CHROME_BIN /usr/bin/chromium
-ENV DISPLAY :99
+ENV CHROME_BIN=/usr/bin/chromium
+ENV DISPLAY=:99
 ENV PATH=/root/maven/bin:${PATH}
