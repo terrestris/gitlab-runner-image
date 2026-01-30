@@ -7,7 +7,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
   apt update -yqqq && \
   apt upgrade -y && \
   apt install unzip \
-  temurin-24-jdk \
+  temurin-25-jdk \
   rsync \
   xvfb \
   maven \
