@@ -1,4 +1,4 @@
-FROM node:24-bullseye
+FROM node:24-trixie
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
   wget -q -O - https://download.docker.com/linux/debian/gpg | apt-key add - && \
